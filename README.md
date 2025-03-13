@@ -108,6 +108,58 @@ e) Log into the JENKINS Console
 
 JENKINS HAS BEEN SUCCESSFULLY INSTALLED CAN BE ACCESSED ON THE JENKINS CONSOLE/DASHBOARD on the web.
 
+### TEST CARRIED OUT
+
+1.Pre-Installation Tests
+Package Repository Update:
+
+Ran sudo apt update to ensure that the package lists were refreshed, confirming the Ubuntu system was up-to-date.
+
+JDK Installation Verification:
+
+Executed sudo apt install default-jdk-headless and confirmed that the headless JDK was installed. This step was essential because Jenkins requires Java to run.
+
+2.Jenkins Installation Verification
+Repository Setup and Installation:
+
+Imported the Jenkins key and added the Jenkins repository.
+
+Ran sudo apt update again to include the Jenkins packages.
+
+Installed Jenkins using sudo apt-get install jenkins with no errors.
+
+Service Status Check:
+
+Executed sudo systemctl status jenkins and confirmed that the Jenkins service was active and running.
+
+Reviewed the service logs for any initial errors or misconfigurations.
+
+3.Network Connectivity & Firewall Tests
+Port 8080 Accessibility:
+
+Confirmed that the server’s security group allowed inbound traffic on port 8080 (the default port for Jenkins).
+
+Performed a connectivity check by accessing http://<your_public_ip>:8080 in a web browser, which successfully loaded the Jenkins splash screen.
+
+Command-Line Connectivity:
+
+Optionally, used curl http://<your_public_ip>:8080 from another machine to ensure that the Jenkins web interface was reachable.
+
+4.Initial Jenkins Setup Testing
+Retrieving the Initial Admin Password:
+
+Ran sudo cat /var/lib/jenkins/secrets/initialAdminPassword to obtain the password.
+
+Used the password to unlock the Jenkins UI for its initial setup.
+
+Plugin Installation:
+
+Verified that the suggested plugins installed correctly from the Jenkins dashboard.
+
+User Account Creation:
+
+Followed the on-screen steps to create a new administrator user, confirming that the user management process is working correctly.
+
 
 
 
