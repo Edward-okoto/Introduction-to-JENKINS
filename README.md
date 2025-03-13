@@ -33,7 +33,7 @@ sudo apt update
 
 The command is used on Debian-based systems (like Ubuntu) to refresh the package lists from the repositories. This means it downloads the latest package information, allowing you to see if there are newer versions available. It’s an essential step before installing or upgrading packages to ensure you're working with the most current information on available software.
 
- ![](./img/J1.png)
+ ![](./img/k1.png)
 
 **Install JDK**
 
@@ -56,7 +56,7 @@ The command installs the **default Java Development Kit (JDK) for headless envir
 
 After running this command, you'll have the essential tools needed to compile and run Java applications without the overhead of GUI-related components.
 
- ![](./img/J2.png)
+  ![](./img/k2.png)
 
  **Install JENKINS**
 
@@ -67,7 +67,7 @@ After running this command, you'll have the essential tools needed to compile an
     sudo apt-get install jenkins
 
 
-  ![](./img/J3.png)
+   ![](./img/k3.png)
 
  The command installs jenkins.It involves importing the jenkins GPG key for package verification,adding the jenkins repository to the system sources, updating package list and finally,installing jenkins through the package manager(apt-get)
 
@@ -75,36 +75,36 @@ After running this command, you'll have the essential tools needed to compile an
 
     sudo systemctl status jenkins
 
- ![](./img/J4.png)
+ ![](./img/k4.png)
 
 **In our instance,create new inbound rule for port 8080 in security group**
 
 By default,JENKINS listen on port 8080.We need to create an inbound rule for this in our security group of our instance.
 
- ![](./img/J5.png)
+  ![](./img/k5.png)
 
 **Set up Jenkins on a Web Console**
 
 a)Input your JENKINS instance ip address on your web browser.
 `http://public_ip:8080`
 
- ![](./img/J6.png)
+ ![](./img/k6.png)
 
 b) On your Jenkins instance, check `var/lib/jenkins/secrets/initialAdminPassword` to know your password
 
- ![](./img/J7.png)
+ ![](./img/k7.png)
 
 c) Install suggested pluggins
 
- ![](./img/J8.png)
+ ![](./img/k8.png)
 
 d) Create a User Account
 
-  ![](./img/J9.png)
+  ![](./img/k9.png)
 
 e) Log into the JENKINS Console
 
-  ![](./img/J10.png)
+  ![](./img/k10.png)
 
 JENKINS HAS BEEN SUCCESSFULLY INSTALLED CAN BE ACCESSED ON THE JENKINS CONSOLE/DASHBOARD on the web.
 
