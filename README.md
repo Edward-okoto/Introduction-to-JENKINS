@@ -67,7 +67,7 @@ After running this command, you'll have the essential tools needed to compile an
     sudo apt-get install jenkins
 
 
- ![](./img/J3.png)
+  ![](./img/J3.png)
 
  The command installs jenkins.It involves importing the jenkins GPG key for package verification,adding the jenkins repository to the system sources, updating package list and finally,installing jenkins through the package manager(apt-get)
 
@@ -75,36 +75,36 @@ After running this command, you'll have the essential tools needed to compile an
 
     sudo systemctl status jenkins
 
-![](./img/J4.png)
+ ![](./img/J4.png)
 
 **In our instance,create new inbound rule for port 8080 in security group**
 
 By default,JENKINS listen on port 8080.We need to create an inbound rule for this in our security group of our instance.
 
-![](./img/J5.png)
+ ![](./img/J5.png)
 
 **Set up Jenkins on a Web Console**
 
 a)Input your JENKINS instance ip address on your web browser.
 `http://public_ip:8080`
 
-![](./img/J6.png)
+ ![](./img/J6.png)
 
 b) On your Jenkins instance, check `var/lib/jenkins/secrets/initialAdminPassword` to know your password
 
-![](./img/J7.png)
+ ![](./img/J7.png)
 
 c) Install suggested pluggins
 
-![](./img/J8.png)
+ ![](./img/J8.png)
 
 d) Create a User Account
 
-![](./img/J9.png)
+  ![](./img/J9.png)
 
 e) Log into the JENKINS Console
 
-![](./img/J10.png)
+  ![](./img/J10.png)
 
 JENKINS HAS BEEN SUCCESSFULLY INSTALLED CAN BE ACCESSED ON THE JENKINS CONSOLE/DASHBOARD on the web.
 
