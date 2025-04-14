@@ -15,13 +15,18 @@ Overall, CI/CD improves development efficiency, accelerates product releases, an
 
 Jenkins is an open-source automation server that plays a key role in continuous integration and continuous delivery (CI/CD). It automates the building, testing, and deployment of software, ensuring that code changes are integrated frequently and reliably. Jenkins achieves this through a rich ecosystem of plugins, which allow it to integrate seamlessly with various tools and technologies used in modern development workflows. This makes it an essential tool for agile teams and DevOps practices, streamlining the path from code commit to production deployment.
 
+Prerequisites
+- A Linux-based operating system (e.g., Ubuntu).
+- Root or sudo access to the Linux server.
+
+
+
+
 ### Getting Started with JENKINS
 
-INSTALLATION OF JENKINS
+#### Installation of Jenkins
 
--We shall be working on a linux operating system.
-
-LOG ONTO TO YOUR LINUX SERVER
+- log to the ubuntu server
 
 **Update package repositories**
 
@@ -31,11 +36,11 @@ LOG ONTO TO YOUR LINUX SERVER
 sudo apt update
 ```
 
-The command is used on Debian-based systems (like Ubuntu) to refresh the package lists from the repositories. This means it downloads the latest package information, allowing you to see if there are newer versions available. It’s an essential step before installing or upgrading packages to ensure you're working with the most current information on available software.
+- The command is used on Debian-based systems (like Ubuntu) to refresh the package lists from the repositories. This means it downloads the latest package information, allowing you to see if there are newer versions available. It’s an essential step before installing or upgrading packages to ensure you're working with the most current information on available software.
 
  ![](./img/k1.png)
 
-**Install JDK**
+**Install (java) JDK**
 
 
 
@@ -60,49 +65,85 @@ After running this command, you'll have the essential tools needed to compile an
 
  **Install JENKINS**
 
-     wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-    sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
-    /etc/apt/sources.list.d/jenkins.list'
+ 1}  Add the Jenkins GPG key for package verification
+    
+  ```
+  wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+  ```
+  
+ 2}  Add the jenkins repository
+
+  ```
+  sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \ /etc/apt/sources.list.d/jenkins.list'
+
+  ```
+ 
+ 3} This ensures access to the latest package versions available in the repositories.
+
+   ```
     sudo apt update
     sudo apt-get install jenkins
-
+   ```
 
    ![](./img/k3.png)
 
- The command installs jenkins.It involves importing the jenkins GPG key for package verification,adding the jenkins repository to the system sources, updating package list and finally,installing jenkins through the package manager(apt-get)
+ Theses command installs jenkins.It involves importing the jenkins GPG key for package verification,adding the jenkins repository to the system sources, updating package list and finally,installing jenkins through the package manager(apt-get)
 
- **Check if JENKINS has been installed,up and running**
+ #### Verify Jenkins Installation
 
-    sudo systemctl status jenkins
+ Check if JENKINS has been installed,up and running
+ 
+  ```
+  sudo systemctl status jenkins
+ 
+  ```
+
+  - If `active` , jenkins is successfully installed.
 
  ![](./img/k4.png)
 
+ ### Configure Network Setting
+
 **In our instance,create new inbound rule for port 8080 in security group**
 
-By default,JENKINS listen on port 8080.We need to create an inbound rule for this in our security group of our instance.
+By default, Jenkins listens on port **8080**. Ensure this port is open for inbound traffic in your instance’s security group:
+- **Create a new inbound rule** for port **8080** in your cloud provider’s security group.
 
-  ![](./img/k5.png)
+
+![](./img/k5.png)
 
 **Set up Jenkins on a Web Console**
 
-a)Input your JENKINS instance ip address on your web browser.
+a) Input your JENKINS instance ip address on your web browser.
+
 `http://public_ip:8080`
 
  ![](./img/k6.png)
 
-b) On your Jenkins instance, check `var/lib/jenkins/secrets/initialAdminPassword` to know your password
+b) Retrieve the initial administrator password:
+
+On your Jenkins instance,run the command:
+
+ `cat var/lib/jenkins/secrets/initialAdminPassword` 
 
  ![](./img/k7.png)
 
 c) Install suggested pluggins
 
+- Follow the on-screen instructions to install commonly used plugins.
+
+
  ![](./img/k8.png)
 
-d) Create a User Account
+d) Create a New Administrator User:
+- Set up your admin account as prompted.
 
-  ![](./img/k9.png)
 
-e) Log into the JENKINS Console
+ ![](./img/k9.png)
+
+e) Access the JENKINS dashboard.
+
+  `http://<your_public_ip>:8080`
 
   ![](./img/k10.png)
 
@@ -110,56 +151,90 @@ JENKINS HAS BEEN SUCCESSFULLY INSTALLED CAN BE ACCESSED ON THE JENKINS CONSOLE/D
 
 ### TEST CARRIED OUT
 
-1.Pre-Installation Tests
-Package Repository Update:
+### **4. Testing Jenkins Installation**
 
-Ran sudo apt update to ensure that the package lists were refreshed, confirming the Ubuntu system was up-to-date.
+Once Jenkins has been installed, it’s essential to perform a series of tests to confirm that the installation is functional and that Jenkins is correctly configured. Below are the steps carried out to validate the setup:
 
-JDK Installation Verification:
+---
 
-Executed sudo apt install default-jdk-headless and confirmed that the headless JDK was installed. This step was essential because Jenkins requires Java to run.
+#### **Pre-Installation Validation**
+1. **Update Package Repository**:
+   - Ensured that the system's package repository was up to date by executing:
+     ```bash
+     sudo apt update
+     ```
+   - This step confirmed that all system packages were updated before the installation began.
 
-2.Jenkins Installation Verification
-Repository Setup and Installation:
+2. **Verify JDK Installation**:
+   - Installed the default headless JDK required for Jenkins using:
+     ```bash
+     sudo apt install default-jdk-headless
+     ```
+   - Verified the successful installation by checking the Java version:
+     ```bash
+     java -version
+     ```
 
-Imported the Jenkins key and added the Jenkins repository.
+---
 
-Ran sudo apt update again to include the Jenkins packages.
+#### **Jenkins Installation Validation**
+1. **Repository Setup and Installation**:
+   - Imported the Jenkins GPG key and added the repository without any errors.
+   - Updated the package list and installed Jenkins with:
+     ```bash
+     sudo apt update
+     sudo apt-get install jenkins
+     ```
 
-Installed Jenkins using sudo apt-get install jenkins with no errors.
+2. **Service Status Check**:
+   - Verified that the Jenkins service was installed and running using:
+     ```bash
+     sudo systemctl status jenkins
+     ```
+   - Checked service logs to ensure there were no errors or misconfigurations during startup.
 
-Service Status Check:
+---
 
-Executed sudo systemctl status jenkins and confirmed that the Jenkins service was active and running.
+#### **Network Configuration Validation**
+1. **Port 8080 Accessibility**:
+   - Confirmed that the security group associated with the server allowed inbound traffic on port **8080**, as this is the default port for Jenkins.
+   - Tested connectivity by accessing the Jenkins dashboard in a web browser at:
+     ```
+     http://<your_public_ip>:8080
+     ```
 
-Reviewed the service logs for any initial errors or misconfigurations.
+2. **Command-Line Connectivity Test**:
+   - Optionally used `curl` from another machine to verify that the Jenkins web interface was reachable:
+     ```bash
+     curl http://<your_public_ip>:8080
+     ```
 
-3.Network Connectivity & Firewall Tests
-Port 8080 Accessibility:
+---
 
-Confirmed that the server’s security group allowed inbound traffic on port 8080 (the default port for Jenkins).
+#### **Initial Setup Validation**
+1. **Admin Password Retrieval**:
+   - Extracted the initial admin password using:
+     ```bash
+     sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+     ```
+   - Used the retrieved password to unlock the Jenkins interface in the web browser.
 
-Performed a connectivity check by accessing http://<your_public_ip>:8080 in a web browser, which successfully loaded the Jenkins splash screen.
+2. **Plugin Installation**:
+   - Followed the on-screen instructions to install the suggested plugins.
+   - Verified that plugins were installed without any errors.
 
-Command-Line Connectivity:
+3. **User Account Creation**:
+   - Created a new administrator account as prompted during the setup process.
+   - Logged into the Jenkins dashboard to confirm successful account creation and accessibility.
 
-Optionally, used curl http://<your_public_ip>:8080 from another machine to ensure that the Jenkins web interface was reachable.
+---
 
-4.Initial Jenkins Setup Testing
-Retrieving the Initial Admin Password:
+### **Test Results**
+- The Jenkins splash screen loaded successfully, confirming network connectivity and proper service operation.
+- Suggested plugins were installed, and the Jenkins web interface was operational.
+- An administrator account was created, completing the initial setup.
 
-Ran sudo cat /var/lib/jenkins/secrets/initialAdminPassword to obtain the password.
-
-Used the password to unlock the Jenkins UI for its initial setup.
-
-Plugin Installation:
-
-Verified that the suggested plugins installed correctly from the Jenkins dashboard.
-
-User Account Creation:
-
-Followed the on-screen steps to create a new administrator user, confirming that the user management process is working correctly.
-
+With all tests successfully completed, Jenkins is confirmed to be fully functional and ready for use in your CI/CD workflows. 
 
 
 
